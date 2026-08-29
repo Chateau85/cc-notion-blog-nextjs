@@ -1,9 +1,7 @@
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
-import js from '@eslint/js';
 import globals from 'globals';
-import someConfig from 'some-other-config-you-use';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -14,7 +12,9 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  js.configs.recommended,
+  {
+    ignores: ['.next/**', 'node_modules/**', 'out/**', 'next-env.d.ts'],
+  },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
     languageOptions: {
@@ -32,8 +32,4 @@ const eslintConfig = [
   eslintConfigPrettier,
 ];
 
-export default {
-  eslintConfig,
-  someConfig,
-  eslintConfigPrettier,
-};
+export default eslintConfig;
